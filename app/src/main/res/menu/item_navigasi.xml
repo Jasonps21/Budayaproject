@@ -28,13 +28,12 @@
             <item
                 android:id="@+id/navigation4"
                 android:checked="false"
-                android:icon="@drawable/design_ic_visibility"
                 android:title="@string/navigation_view_item_4" />
             <item
                 android:id="@+id/navigation5"
                 android:checked="false"
                 android:icon="@drawable/design_ic_visibility"
-                android:title="@string/navigation_view_item_5" />
+                android:title="Keluar" />
 
         </menu>
     </item>
