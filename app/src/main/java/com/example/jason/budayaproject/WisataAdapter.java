@@ -38,7 +38,7 @@ public class WisataAdapter extends RecyclerView.Adapter<WisataAdapter.WisataView
         if(datas!=null){
             final wisata data = datas.get(position);
             holder.tv_nama.setText(data.getNama());
-            Picasso.with(context).load(data.getGambar()).into(holder.gbr_wisata);
+            Picasso.with(context).load(String.valueOf(data.getImage())).into(holder.gbr_wisata);
         }
     }
 

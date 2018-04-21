@@ -10,6 +10,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -25,15 +26,15 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    RecyclerView rv_wisata;
-    WisataAdapter wisataAdapter;
+    public RecyclerView rv_wisata;
+    public WisataAdapter wisataAdapter;
     //Mendefinisikan variabel
     private Toolbar toolbar;
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
 
-    FirebaseDatabase database;
-    DatabaseReference wisatalist;
+    //FirebaseDatabase database;
+    DatabaseReference database;
     List<wisata> wisatas;
 
     @Override
@@ -41,30 +42,29 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        database = FirebaseDatabase.getInstance();
-        wisatalist = database.getReference();
+        database = FirebaseDatabase.getInstance().getReference();
         rv_wisata = findViewById(R.id.rv_wisata);
         rv_wisata.setItemAnimator(new DefaultItemAnimator());
         rv_wisata.setHasFixedSize(true);
         rv_wisata.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
-        wisatalist.child("wisata").addValueEventListener(new ValueEventListener() {
+        database.child("Wisata").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 wisatas = new ArrayList<>();
                 for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()){
                     wisata data = noteDataSnapshot.getValue(wisata.class);
+                    Log.e("nama", data.getNama());
                     wisatas.add(data);
                 }
+                wisataAdapter = new WisataAdapter(wisatas,MainActivity.this);
+                rv_wisata.setAdapter(wisataAdapter);
             }
-
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
-        wisataAdapter = new WisataAdapter(wisatas,MainActivity.this);
-        rv_wisata.setAdapter(wisataAdapter);
 
 
         // Menginisiasi Toolbar dan mensetting sebagai actionbar

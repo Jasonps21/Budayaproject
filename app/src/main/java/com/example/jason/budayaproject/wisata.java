@@ -9,15 +9,19 @@ public class wisata {
     private String id_wisata;
     private String alamat;
     private String harga;
-    private String gambar;
+    private String image;
     private String deskripsi;
 
-    public wisata(String id_wisata, String nama, String alamat, String harga, String gambar, String deskripsi) {
+    public wisata(){
+
+    }
+
+    public wisata(String id_wisata, String nama, String alamat, String harga, String image, String deskripsi) {
         this.id_wisata = id_wisata;
         this.nama = nama;
         this.alamat = alamat;
         this.harga = harga;
-        this.gambar = gambar;
+        this.image = image;
         this.deskripsi = deskripsi;
     }
 
@@ -37,8 +41,8 @@ public class wisata {
         return harga;
     }
 
-    public String getGambar() {
-        return gambar;
+    public String getImage() {
+        return image;
     }
 
     public void setNama(String nama) {
@@ -57,8 +61,8 @@ public class wisata {
         this.harga = harga;
     }
 
-    public void setGambar(String gambar) {
-        this.gambar = gambar;
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public String getDeskripsi() {
