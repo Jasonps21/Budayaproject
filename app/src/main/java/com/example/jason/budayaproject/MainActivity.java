@@ -7,12 +7,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,16 +31,39 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private NavigationView navigationView;
     private DrawerLayout drawerLayout;
+
+    FirebaseDatabase database;
+    DatabaseReference wisatalist;
+    List<wisata> wisatas;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        rv_wisata = (RecyclerView) findViewById(R.id.rv_wisata);
+        database = FirebaseDatabase.getInstance();
+        wisatalist = database.getReference();
+        rv_wisata = findViewById(R.id.rv_wisata);
         rv_wisata.setItemAnimator(new DefaultItemAnimator());
-        //List<wisata> movies = jsonUtils.getAllMovies(s);
-        //wisataAdapter = new WisataAdapter(movies,MainActivity.this);
+        rv_wisata.setHasFixedSize(true);
+        rv_wisata.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
+        wisatalist.child("wisata").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                wisatas = new ArrayList<>();
+                for (DataSnapshot noteDataSnapshot : dataSnapshot.getChildren()){
+                    wisata data = noteDataSnapshot.getValue(wisata.class);
+                    wisatas.add(data);
+                }
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        wisataAdapter = new WisataAdapter(wisatas,MainActivity.this);
         rv_wisata.setAdapter(wisataAdapter);
 
 
