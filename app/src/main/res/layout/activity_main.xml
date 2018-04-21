@@ -18,20 +18,15 @@
         <include
             android:id="@+id/toolbar"
             layout="@layout/layout_toolbar" />
+
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/rv_wisata"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Ini adalah Contoh isi konten dengan widget TextView yang dibungkus oleh Navigation Drawer"
-            android:id="@+id/textView" android:layout_gravity="center_horizontal"/>
-
     </LinearLayout>
     <android.support.design.widget.NavigationView
+        android:paddingTop="20dp"
         android:id="@+id/navigation_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
