@@ -1,15 +1,18 @@
-package com.example.jason.budayaproject;
+package com.example.jason.budayaproject.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.jason.budayaproject.DetailPageActivity;
+import com.example.jason.budayaproject.R;
+import com.example.jason.budayaproject.Data.wisata;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -34,11 +37,20 @@ public class WisataAdapter extends RecyclerView.Adapter<WisataAdapter.WisataView
     }
 
     @Override
-    public void onBindViewHolder(WisataViewHolder holder, int position) {
+    public void onBindViewHolder(final WisataViewHolder holder, int position) {
         if(datas!=null){
             final wisata data = datas.get(position);
             holder.tv_nama.setText(data.getNama());
             Picasso.with(context).load(String.valueOf(data.getImage())).into(holder.gbr_wisata);
+            holder.cv_wisata.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, DetailPageActivity.class);
+                    intent.putExtra("namawisata",data.getNama());
+                    intent.putExtra("gambar",data.getImage());
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 
