@@ -48,7 +48,6 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference database;
     List<wisata> wisatas;
     List<Makanan> makanans;
-    Button btn_logout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,17 +82,6 @@ public class MainActivity extends AppCompatActivity {
         rv_makanan.setItemAnimator(new DefaultItemAnimator());
         rv_makanan.setHasFixedSize(true);
         rv_makanan.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
-
-        btn_logout = findViewById(R.id.btn_logout);
-        btn_logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                auth.signOut();
-                Intent intent = new Intent(MainActivity.this, Signup.class);
-                startActivity(intent);
-                finish();
-            }
-        });
 
         database.child("Wisata").addValueEventListener(new ValueEventListener() {
             @Override
@@ -166,8 +154,10 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),"Setting telah dipilih",Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.navigation5:
-                        FirebaseAuth.getInstance().signOut();
-                        //Toast.makeText(getApplicationContext(),"About telah dipilih",Toast.LENGTH_SHORT).show();
+                        auth.signOut();
+                        Intent intent = new Intent(MainActivity.this, Signup.class);
+                        startActivity(intent);
+                        finish();
                         return true;
                     default:
                         Toast.makeText(getApplicationContext(),"Kesalahan Terjadi ",Toast.LENGTH_SHORT).show();
@@ -194,10 +184,6 @@ public class MainActivity extends AppCompatActivity {
         drawerLayout.setDrawerListener(actionBarDrawerToggle);
         //memanggil synstate
         actionBarDrawerToggle.syncState();
-    }
-
-    private void signOut() {
-        auth.signOut();
     }
 
     @Override

@@ -22,6 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".ResetPasswordActivity"/>
+        <activity android:name=".PaymentActivity"/>
         <activity android:name=".DetailPageActivity"
             android:parentActivityName=".MainActivity"/>
     </application>
