@@ -1,4 +1,4 @@
-package com.example.jason.budayaproject;
+package com.example.jason.budayaproject.Adapter;
 
 import android.content.Context;
 import android.support.v7.widget.CardView;
@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.jason.budayaproject.Data.Makanan;
+import com.example.jason.budayaproject.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;

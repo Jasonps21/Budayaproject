@@ -1,4 +1,4 @@
-package com.example.jason.budayaproject;
+package com.example.jason.budayaproject.Data;
 
 /**
  * Created by Jason on 21/04/2018.

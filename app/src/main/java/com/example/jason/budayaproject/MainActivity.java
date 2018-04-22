@@ -8,15 +8,19 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.jason.budayaproject.Adapter.MakananAdapter;
+import com.example.jason.budayaproject.Adapter.WisataAdapter;
+import com.example.jason.budayaproject.Data.Makanan;
+import com.example.jason.budayaproject.Data.wisata;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -44,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference database;
     List<wisata> wisatas;
     List<Makanan> makanans;
+    Button btn_logout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +83,17 @@ public class MainActivity extends AppCompatActivity {
         rv_makanan.setItemAnimator(new DefaultItemAnimator());
         rv_makanan.setHasFixedSize(true);
         rv_makanan.setLayoutManager(new LinearLayoutManager(MainActivity.this, LinearLayoutManager.HORIZONTAL, false));
+
+        btn_logout = findViewById(R.id.btn_logout);
+        btn_logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                auth.signOut();
+                Intent intent = new Intent(MainActivity.this, Signup.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         database.child("Wisata").addValueEventListener(new ValueEventListener() {
             @Override
@@ -150,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(),"Setting telah dipilih",Toast.LENGTH_SHORT).show();
                         return true;
                     case R.id.navigation5:
-                        signOut();
+                        FirebaseAuth.getInstance().signOut();
                         //Toast.makeText(getApplicationContext(),"About telah dipilih",Toast.LENGTH_SHORT).show();
                         return true;
                     default:
